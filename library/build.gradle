@@ -33,7 +33,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     //自己封装的组件
-    compile 'com.dreamliner.lib:RvHelper:2.0.0'
+    compile 'com.dreamliner.lib:RvHelper:2.1.0'
     compile 'com.dreamliner.lib:PermissionsHelper:1.0.0'
 
     compile 'com.dreamliner.lib:DreamLinerCustomHead:1.1.0'
@@ -87,7 +87,7 @@ publish {
     userOrg = 'chenzj-king'
     groupId = 'com.dreamliner.lib'
     artifactId = 'DreamLinerFrame'
-    publishVersion = '1.0.0'
+    publishVersion = '1.1.0'
     desc = 'DreamlinerFrame is a simply frame for Android. It has encapsulate some common function. It\'s a quickly development framework'
     website = 'https://github.com/chenzj-king/DreamLinerFrame'
     bintrayUser = bintrayUserVal
