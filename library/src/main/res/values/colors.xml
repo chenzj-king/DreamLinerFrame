@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="default_theme_color">#27C6C6</color>
+    <color name="default_dialog_warning_color">#FF6950</color>
+
+</resources>
