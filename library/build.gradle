@@ -53,7 +53,7 @@ dependencies {
 
     //RxJava2
     compile 'io.reactivex.rxjava2:rxjava:2.1.1'
-    compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    //compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //rxlifecycle2
@@ -87,7 +87,7 @@ publish {
     userOrg = 'chenzj-king'
     groupId = 'com.dreamliner.lib'
     artifactId = 'DreamLinerFrame'
-    publishVersion = '1.1.0'
+    publishVersion = '1.1.1'
     desc = 'DreamlinerFrame is a simply frame for Android. It has encapsulate some common function. It\'s a quickly development framework'
     website = 'https://github.com/chenzj-king/DreamLinerFrame'
     bintrayUser = bintrayUserVal

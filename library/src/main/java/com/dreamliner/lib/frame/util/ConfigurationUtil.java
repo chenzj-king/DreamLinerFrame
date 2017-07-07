@@ -29,12 +29,19 @@ public class ConfigurationUtil {
     public static int CANCEL_COLOR_RES;
 
     public static void init(Context context) {
+        init(context, false, new String[]{});
+    }
+
+    public static void init(Context context, boolean isDebug, String[] permissionArray) {
         CONFIGURATION_CONTEXT = context;
         //初始化需要使用context的工具类
         SpUtil.init(context);
         PixelUtil.init(context);
         //初始化对话框的提示语
         initThemeColor();
+
+        setIsDebug(isDebug);
+        setPermissionArray(permissionArray);
     }
 
     public static Context getContext() {
