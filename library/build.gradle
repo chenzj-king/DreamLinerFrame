@@ -83,7 +83,7 @@ publish {
     userOrg = 'chenzj-king'
     groupId = 'com.dreamliner.lib'
     artifactId = 'DreamLinerFrame'
-    publishVersion = '1.2.0'
+    publishVersion = '1.2.1'
     desc = 'DreamlinerFrame is a simply frame for Android. It has encapsulate some common function. It\'s a quickly development framework'
     website = 'https://github.com/chenzj-king/DreamLinerFrame'
     bintrayUser = bintrayUserVal

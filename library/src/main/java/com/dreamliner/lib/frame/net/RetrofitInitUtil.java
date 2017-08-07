@@ -28,18 +28,18 @@ import static com.dreamliner.lib.frame.net.ErrorCode.NET_DISABLE;
  */
 public class RetrofitInitUtil {
 
-    private void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl) {
+    public static void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl) {
         setCommonSetting(okhttpBuilder, retrofitBuilder, hostUrl, 10, 10, 10, true);
     }
 
-    private void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl,
-                                  Interceptor... interceptors) {
+    public static void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl,
+                                        Interceptor... interceptors) {
         setCommonSetting(okhttpBuilder, retrofitBuilder, hostUrl, 10, 10, 10, true, interceptors);
     }
 
-    private void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl,
-                                  int conTimeout, int writeTimeout, int readTimeout, boolean isShowLog,
-                                  Interceptor... interceptors) {
+    public static void setCommonSetting(OkHttpClient.Builder okhttpBuilder, Retrofit.Builder retrofitBuilder, String hostUrl,
+                                        int conTimeout, int writeTimeout, int readTimeout, boolean isShowLog,
+                                        Interceptor... interceptors) {
         if (!URLUtil.isValidUrl(hostUrl)) {
             throw new IllegalArgumentException("please setup the validUrl");
         } else {
