@@ -12,24 +12,11 @@ import java.util.List;
  * @date 2015/6/28
  * @email admin@chenzhongjin.cn
  */
-public class AppManager {
+public enum AppManager {
 
-    private static AppManager instance = null;
-    private static List<Activity> mActivities = new LinkedList<>();
+    INSTACE;
 
-    private AppManager() {
-    }
-
-    public static AppManager getInstance() {
-        if (null == instance) {
-            synchronized (AppManager.class) {
-                if (null == instance) {
-                    instance = new AppManager();
-                }
-            }
-        }
-        return instance;
-    }
+    private List<Activity> mActivities = new LinkedList<>();
 
     public int size() {
         return mActivities.size();
@@ -67,7 +54,7 @@ public class AppManager {
         }
     }
 
-    public static List<Activity> getActivities() {
+    public synchronized List<Activity> getActivities() {
         return mActivities;
     }
 }

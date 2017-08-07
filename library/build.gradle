@@ -33,13 +33,10 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
     //自己封装的组件
-    compile 'com.dreamliner.lib:RvHelper:2.1.0'
     compile 'com.dreamliner.lib:PermissionsHelper:1.0.0'
-
-    compile 'com.dreamliner.lib:DreamLinerCustomHead:1.1.0'
     compile 'com.dreamliner.lib:DreamLinerCustomDialog:1.0.0'
 
-    compile 'me.yokeyword:fragmentation-core:1.0.1'
+    compile 'me.yokeyword:fragmentation-core:1.1.0'
 
     //noinspection GradleCompatible
     compile "com.android.support:appcompat-v7:$versions.support"
@@ -52,8 +49,7 @@ dependencies {
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
 
     //RxJava2
-    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
-    //compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //rxlifecycle2
@@ -87,7 +83,7 @@ publish {
     userOrg = 'chenzj-king'
     groupId = 'com.dreamliner.lib'
     artifactId = 'DreamLinerFrame'
-    publishVersion = '1.1.1'
+    publishVersion = '1.2.0'
     desc = 'DreamlinerFrame is a simply frame for Android. It has encapsulate some common function. It\'s a quickly development framework'
     website = 'https://github.com/chenzj-king/DreamLinerFrame'
     bintrayUser = bintrayUserVal

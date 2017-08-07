@@ -22,7 +22,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -88,19 +87,15 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
         return 0;
     }
 
-    protected abstract void initViews(@Nullable Bundle savedInstanceState);
-
     protected void initSpecialView(@Nullable Bundle savedInstanceState) {
     }
+
+    protected abstract void initViews(@Nullable Bundle savedInstanceState);
 
     protected void handleMes(Message msg) {
     }
 
     protected void getBundleExtras(Bundle extras) {
-    }
-
-    public boolean doNetError(int errorCode, String errorMsg) {
-        return false;
     }
 
     protected boolean isRegisterEvent() {
@@ -111,60 +106,15 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
         return true;
     }
 
-    /**
-     * get the overridePendingTransition mode
-     */
-    protected TransitionMode getOverridePendingTransitionMode() {
-        return TransitionMode.RIGHT;
-    }
-
-    /**
-     * toggle overridePendingTransition
-     *
-     * @return
-     */
-    protected boolean toggleOverridePendingTransition() {
-        return true;
-    }
-
     public MyHandler mHandler;
 
     protected MaterialDialog mMaterialDialog;
     protected CustomDialog mCustomDialog;
 
-    /**
-     * overridePendingTransition mode
-     */
-    public enum TransitionMode {
-        LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE
-    }
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         lifecycleSubject.onNext(ActivityEvent.CREATE);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        if (toggleOverridePendingTransition()) {
-            switch (getOverridePendingTransitionMode()) {
-                case LEFT:
-                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
-                    break;
-                case RIGHT:
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                    break;
-                case TOP:
-                    overridePendingTransition(R.anim.top_in, R.anim.bottom_out);
-                    break;
-                case BOTTOM:
-                    overridePendingTransition(R.anim.bottom_in, R.anim.top_out);
-                    break;
-                case SCALE:
-                    overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
-                    break;
-                case FADE:
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    break;
-            }
-        }
+        overridePendingTransitionIn();
         super.onCreate(savedInstanceState);
         mDelegate.onCreate(savedInstanceState);
         //兼容DataBinding的方式的时候就不需要设置了
@@ -179,7 +129,7 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
         }
 
         //Act 堆栈管理
-        AppManager.getInstance().addActivity(this);
+        AppManager.INSTACE.addActivity(this);
 
         if (isRegisterEvent())
             EventBus.getDefault().register(this);
@@ -188,6 +138,12 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
 
         initSpecialView(savedInstanceState);
         initViews(savedInstanceState);
+    }
+
+    protected void overridePendingTransitionIn() {
+    }
+
+    protected void overridePendingTransitionOut() {
     }
 
     @Override
@@ -234,45 +190,26 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
 
     @Override
     protected void onDestroy() {
+        //supportFra
         mDelegate.onDestroy();
+        //RxLifecycle
         lifecycleSubject.onNext(ActivityEvent.DESTROY);
-        super.onDestroy();
-        // remove and eventbus
+        //EventBus
         if (isRegisterEvent()) {
             EventBus.getDefault().unregister(this);
         }
         mHandler.removeCallbacksAndMessages(null);
         hideDialog();
-        hideSoftInputView();
         EasyPermissions.hidePermissionsDialog();
+        hideSoftInputView();
+        super.onDestroy();
     }
 
     @Override
     public void finish() {
         super.finish();
-        AppManager.getInstance().removeActivity(this);
-        if (toggleOverridePendingTransition()) {
-            switch (getOverridePendingTransitionMode()) {
-                case LEFT:
-                    overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                    break;
-                case RIGHT:
-                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
-                    break;
-                case TOP:
-                    overridePendingTransition(R.anim.bottom_in, R.anim.top_out);
-                    break;
-                case BOTTOM:
-                    overridePendingTransition(R.anim.top_in, R.anim.bottom_out);
-                    break;
-                case SCALE:
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    break;
-                case FADE:
-                    overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
-                    break;
-            }
-        }
+        AppManager.INSTACE.removeActivity(this);
+        overridePendingTransitionOut();
     }
 
     /**
@@ -367,6 +304,10 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
 
     public void post(Runnable runnable) {
         mHandler.post(runnable);
+    }
+
+    public void postDelayed(Runnable runnable, long delayMillis) {
+        mHandler.postDelayed(runnable, delayMillis);
     }
 
     protected static class MyHandler extends Handler {
