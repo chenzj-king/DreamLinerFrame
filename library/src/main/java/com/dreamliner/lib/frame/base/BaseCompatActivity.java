@@ -351,7 +351,7 @@ public abstract class BaseCompatActivity extends AppCompatActivity implements Ea
         showToast(null, resId, LENGTH_LONG);
     }
 
-    private void showToast(final String msg, final @StringRes int resId, final int length) {
+    protected void showToast(final String msg, final @StringRes int resId, final int length) {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
