@@ -44,4 +44,8 @@ dependencies {
 
     compile 'com.dreamliner.lib:RvHelper:2.1.0'
     compile 'com.dreamliner.lib:DreamLinerCustomHead:1.1.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
+}
+repositories {
+    mavenCentral()
 }

@@ -568,6 +568,32 @@ public abstract class BaseCompatFragment extends Fragment implements LifecyclePr
         mDelegate.loadRootFragment(containerId, toFragment, addToBackStack, allowAnim);
     }
 
+    /**
+     * 加载多个同级根Fragment,类似Wechat, QQ主页的场景
+     */
+    public void loadMultipleRootFragment(int containerId, int showPosition, ISupportFragment... toFragments) {
+        mDelegate.loadMultipleRootFragment(containerId, showPosition, toFragments);
+    }
+
+    /**
+     * show一个Fragment,hide其他同栈所有Fragment
+     * 使用该方法时，要确保同级栈内无多余的Fragment,(只有通过loadMultipleRootFragment()载入的Fragment)
+     * <p>
+     * 建议使用更明确的{@link #showHideFragment(ISupportFragment, ISupportFragment)}
+     *
+     * @param showFragment 需要show的Fragment
+     */
+    public void showHideFragment(ISupportFragment showFragment) {
+        mDelegate.showHideFragment(showFragment);
+    }
+
+    /**
+     * show一个Fragment,hide一个Fragment ; 主要用于类似微信主页那种 切换tab的情况
+     */
+    public void showHideFragment(ISupportFragment showFragment, ISupportFragment hideFragment) {
+        mDelegate.showHideFragment(showFragment, hideFragment);
+    }
+
     public void start(ISupportFragment toFragment) {
         mDelegate.start(toFragment);
     }
@@ -602,9 +628,16 @@ public abstract class BaseCompatFragment extends Fragment implements LifecyclePr
     }
 
     /**
+     * Pop the child fragment.
+     */
+    public void popChild() {
+        mDelegate.popChild();
+    }
+
+    /**
      * Pop the last fragment transition from the manager's fragment
      * back stack.
-     * <p>
+     *
      * 出栈到目标fragment
      *
      * @param targetFragmentClass   目标fragment
@@ -612,6 +645,55 @@ public abstract class BaseCompatFragment extends Fragment implements LifecyclePr
      */
     public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment) {
         mDelegate.popTo(targetFragmentClass, includeTargetFragment);
+    }
+
+    /**
+     * If you want to begin another FragmentTransaction immediately after popTo(), use this method.
+     * 如果你想在出栈后, 立刻进行FragmentTransaction操作，请使用该方法
+     */
+    public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
+        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
+    }
+
+    public void popTo(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim) {
+        mDelegate.popTo(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
+    }
+
+    public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment) {
+        mDelegate.popToChild(targetFragmentClass, includeTargetFragment);
+    }
+
+    public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable) {
+        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable);
+    }
+
+    public void popToChild(Class<?> targetFragmentClass, boolean includeTargetFragment, Runnable afterPopTransactionRunnable, int popAnim) {
+        mDelegate.popToChild(targetFragmentClass, includeTargetFragment, afterPopTransactionRunnable, popAnim);
+    }
+
+    /**
+     * 得到位于栈顶Fragment
+     */
+    public ISupportFragment getTopFragment() {
+        return SupportHelper.getTopFragment(getFragmentManager());
+    }
+
+    public ISupportFragment getTopChildFragment() {
+        return SupportHelper.getTopFragment(getChildFragmentManager());
+    }
+
+    /**
+     * @return 位于当前Fragment的前一个Fragment
+     */
+    public ISupportFragment getPreFragment() {
+        return SupportHelper.getPreFragment(this);
+    }
+
+    /**
+     * 获取栈内的fragment对象
+     */
+    public <T extends ISupportFragment> T findFragment(Class<T> fragmentClass) {
+        return SupportHelper.findFragment(getFragmentManager(), fragmentClass);
     }
 
     /**
