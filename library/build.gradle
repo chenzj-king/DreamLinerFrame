@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 Properties properties = new Properties()
@@ -83,7 +82,7 @@ publish {
     userOrg = 'chenzj-king'
     groupId = 'com.dreamliner.lib'
     artifactId = 'DreamLinerFrame'
-    publishVersion = '1.2.6'
+    publishVersion = '1.3.0'
     desc = 'DreamlinerFrame is a simply frame for Android. It has encapsulate some common function. It\'s a quickly development framework'
     website = 'https://github.com/chenzj-king/DreamLinerFrame'
     bintrayUser = bintrayUserVal
